@@ -22,8 +22,11 @@ very fast.
 Here's a Python implementation of next_permutation with user-defined comparison.
 Use freely.
 """
+### cmp() was removed in Python 3
+#def cmp(a,b):
+#    return (a > b) - (a < b)
 
-def next_permutation(seq, pred=cmp):
+def next_permutation(seq):
     """Like C++ std::next_permutation() but implemented as
     generator. Yields copies of seq."""
 
@@ -67,10 +70,10 @@ def next_permutation(seq, pred=cmp):
             next1 = next
             next -= 1
             
-            if pred(seq[next], seq[next1]) < 0:
+            if (seq[next] < seq[next1]):
                 # Step 2.
                 mid = last - 1
-                while not (pred(seq[next], seq[mid]) < 0):
+                while not (seq[next] < seq[mid]):
                     mid -= 1
                 seq[next], seq[mid] = seq[mid], seq[next]
                 
