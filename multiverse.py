@@ -129,7 +129,7 @@ class Multiverse:
 
   def wolfAttack(self,player,target):
     if not self.isNight():
-        print "ERROR: Only able to perform wolf attack at night"
+        print ("ERROR: Only able to perform wolf attack at night")
         return
     for u in self.universes:
       u.wolfAttack(player,target)
@@ -137,13 +137,13 @@ class Multiverse:
 
   def seerAlignmentVision(self,player,target):
     if not self.isNight():
-        print "ERROR: Only able to perform seer alignment vision at night"
+        print ("ERROR: Only able to perform seer alignment vision at night")
         return
     if self.isDead(player):
-        print "ERROR: Dead player is unable to perform seer alignment vision"
+        print ("ERROR: Dead player is unable to perform seer alignment vision")
         return
     if not roles.Seer() in self.gatherRoleProbabilities(player):
-        print "ERROR: Player who can not be seer is unable to perform seer alignment vision"
+        print ("ERROR: Player who can not be seer is unable to perform seer alignment vision")
         return
 
     vision = self.randomUniverse().assignment[target].alignment
@@ -153,7 +153,7 @@ class Multiverse:
         if not p.vision is None:
           vision = p.vision
           visionFound = True
-          print "This vision has already been observed this round"
+          print ("This vision has already been observed this round")
           break
     if not visionFound:
       self.addObservation(observation.SeerAlignmentObservation(player,target,vision))
