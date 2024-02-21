@@ -17,6 +17,7 @@
 
 import pickle
 from cmd import Cmd
+from math import floor
 
 from multiverse import Multiverse
 
@@ -29,7 +30,7 @@ class Main(Cmd):
     self.game = None
   def update_roles(self):
     seer = 1
-    wolf = len(self.players) / 3
+    wolf = floor(len(self.players) / 3)
     villager = len(self.players) - wolf - seer
     self.roles = [("Seer",seer),("Wolf",wolf),("Villager",villager)]
   def do_start(self,s):
@@ -117,7 +118,7 @@ class Main(Cmd):
     filename = s
     if filename == "":
       filename = "current.bra-ket-wolf"
-    f = open(filename,"w")
+    f = open(filename,"wb")
     pickle.dump(self.game,f)
     f.close()
   def do_load(self,s):
@@ -127,7 +128,7 @@ class Main(Cmd):
     filename = s
     if filename == "":
       filename = "current.bra-ket-wolf"
-    f = open(filename,"r")
+    f = open(filename,"rb")
     self.game = pickle.load(f)
     self.players = self.game.players
     self.roles = self.game.rolelist

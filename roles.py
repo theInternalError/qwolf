@@ -22,10 +22,15 @@ class WolfAlignment:
 
 class Seer:
   alignment = VillageAlignment
+  rank = 99
   def __repr__(self):
     return "Seer"
   def __eq__(self,other):
-    return other.__class__ == self.__class__
+    return other.rank == self.rank
+  def __lt__(self,other):
+    return other.rank < self.rank
+  def __gt__(self,other):
+    return other.rank > self.rank
   def __hash__(self):
     return hash("Seer")
 
@@ -35,21 +40,29 @@ class Wolf:
   def __repr__(self):
     return "Wolf(%s)" % self.rank
   def __eq__(self,other):
-    if other.__class__ != self.__class__:
-      return False
     return other.rank == self.rank
+  def __lt__(self,other):
+    return other.rank < self.rank
+  def __gt__(self,other):
+    return other.rank > self.rank
   def __hash__(self):
     return hash("Wolf") ^ self.rank
   alignment = WolfAlignment
 
 class Villager:
+  alignment = VillageAlignment
+  rank = 98
   def __repr__(self):
     return "Villager"
   def __eq__(self,other):
-    return other.__class__ == self.__class__
+    return other.rank == self.rank
+  def __lt__(self,other):
+    return other.rank < self.rank
+  def __gt__(self,other):
+    return other.rank > self.rank
   def __hash__(self):
     return hash("Villager")
-  alignment = VillageAlignment
+
 
 
 currwolfrank = 0

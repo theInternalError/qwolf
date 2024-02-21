@@ -88,7 +88,7 @@ class Multiverse:
 
   def generateUniverses(self):
     result = []
-    for assignment in next_permutation(sorted(expandrolelist(self.rolelist))):
+    for assignment in permutations(sorted(expandrolelist(self.rolelist))):
       assignedroles = dict(zip(self.players,assignment))
       result.append(Universe(assignedroles,self))
     numUniverses = int(self.toKeep * len(result))
