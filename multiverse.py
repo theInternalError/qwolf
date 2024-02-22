@@ -44,11 +44,12 @@ class Multiverse:
     self.time = ("N",0)
 
   def __str__(self):
+    #TODO: prettify
     time = "Stats at %s%s" % self.time
     roles = pprint.pformat(self.gatherAllRoleProbabilities())
     dead = pprint.pformat(self.gatherDeadProbabilities())
     univ = len(self.universes)
-    return "%s\n%s\n%s\n%s\n" % (time,roles, dead, univ)
+    return "%s\n%s\n%s\n%s\n" % (time, roles, dead, univ)
 
   def getGoodEvilDeadTable(self,names=True):
     if names:
@@ -87,6 +88,7 @@ class Multiverse:
     return self.time[0] == "N"
 
   def generateUniverses(self):
+    #TODO: optimize memory usage
     result = []
     for assignment in permutations(sorted(expandrolelist(self.rolelist))):
       assignedroles = dict(zip(self.players,assignment))
@@ -128,23 +130,34 @@ class Multiverse:
     self.pendingObservations = []
 
   def wolfAttack(self,player,target):
+    #TODO: prevent players from attacking multiple times in a night, or attacking a dead player
     if not self.isNight():
-        print ("ERROR: Only able to perform wolf attack at night")
-        return
+      print ("ERROR: Only able to perform wolf attack at night")
+      return
+    if player == target:
+      print ("ERROR: Player cannot attack self")
+      return
+    if self.isDead(player):
+      print ("ERROR: Dead player is unable to make attacks")
+      return
     for u in self.universes:
       u.wolfAttack(player,target)
     self.addObservation(observation.WolfAttackObservation(player,target))
 
   def seerAlignmentVision(self,player,target):
+    #TODO: prevent players from seeing multiple times in a night, or seeing a dead player
     if not self.isNight():
-        print ("ERROR: Only able to perform seer alignment vision at night")
-        return
+      print ("ERROR: Only able to perform seer alignment vision at night")
+      return
+    if player == target:
+      print ("ERROR: Player cannot target self")
+      return
     if self.isDead(player):
-        print ("ERROR: Dead player is unable to perform seer alignment vision")
-        return
+      print ("ERROR: Dead player is unable to receive seer visions")
+      return
     if not roles.Seer() in self.gatherRoleProbabilities(player):
-        print ("ERROR: Player who can not be seer is unable to perform seer alignment vision")
-        return
+      print ("ERROR: Player who can not be seer is unable to perform seer alignment vision")
+      return
 
     vision = self.randomUniverse().assignment[target].alignment
     visionFound = False

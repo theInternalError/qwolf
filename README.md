@@ -1,6 +1,7 @@
 # bra-ket-wolf
 
 An implementation of Quantum Werewolf by [Vincent Verhoeven](verhoevenv@gmail.com)
+Improved by [Jacob Rardin](jacob@rardin.tech)
 
 Quantum Werewolf is a variant on the well-known party game Werewolf (AKA Mafia). This variant was designed by Steven Irrgang. The main idea is that players don't have one role given tot them but have all roles at the same time in a kind of quantum superposition. Full rules are available on http://puzzle.cisra.com.au/2008/quantumwerewolf.html
 
@@ -22,7 +23,7 @@ The current implementation has the villager, werewolf and seer roles.
   * warnings on overwriting save files
 
 ## Requirements
-Python 2.6 or higher.
+Python 3 or higher.
 
 ## License
 GPL v3 licensed.
@@ -115,14 +116,14 @@ Okay, so now it's your player's turn! They will do the usual werewolf things wit
 ```
 attack Alice Bob
 ```
-which means Alice attacked Bob. Make sure to only use this command when it's night-time, because the program will crash during the day.
+which means Alice attacked Bob. If you try to attack during the day, you'll get an error message.
 
 #### Seer visions
 Next part are the seer roles.
 ```
 see Remus Bob
 ```
-means that Remus used his seer action during the night (again, it'll crash during the day) because he wants to know if Bob is a good boy or not. The program will print an alignment, which is what you report back to your player. Once you have things to report back to your players, make sure to SAVE frequently and take backups each game phase!
+means that Remus used his seer action during the night (again, you'll get an error during the day) because he wants to know if Bob is a good boy or not. The program will print an alignment, which is what you report back to your player. Once you have things to report back to your players, make sure to SAVE frequently and take backups each game phase!
 
 Let's add a few more of these:
 ```
@@ -142,7 +143,7 @@ When all the sneaky night action has ended, it's time to switch to the next game
 ```
 next
 ```
-It's very easy to forget to do this! Double-check and triple-check! Your actions (especially the wolf attacks) have to be registered on the right time, or the program will give wrong results.
+It's very easy to forget to do this! The prompt will remind you of the game time, though.
 
 (sidenote: in general forum werewolf, it's usually better to have no N0 wolf kills, and restricted N0 seer visions (like a random 'not evil' vision). This prevents games dying out early because of lucky kills/visions before the game even started. Not sure that is needed with quantum werewolf.)
 
